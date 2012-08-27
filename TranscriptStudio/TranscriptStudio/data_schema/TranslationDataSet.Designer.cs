@@ -225,7 +225,7 @@ namespace TranscriptStudio.data_schema {
         private void InitClass() {
             this.DataSetName = "TranslationDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/TranslationDataSet.xsd";
+            this.Namespace = "urn:carvic:translation-studio";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableTranslationLine = new TranslationLineDataTable();
@@ -322,6 +322,8 @@ namespace TranscriptStudio.data_schema {
             
             private global::System.Data.DataColumn columnEnd;
             
+            private global::System.Data.DataColumn columnSpeaker;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TranslationLineDataTable() {
@@ -389,6 +391,14 @@ namespace TranscriptStudio.data_schema {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SpeakerColumn {
+                get {
+                    return this.columnSpeaker;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -424,13 +434,14 @@ namespace TranscriptStudio.data_schema {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TranslationLineRow AddTranslationLineRow(string Text, double Start, double End) {
+            public TranslationLineRow AddTranslationLineRow(string Text, double Start, double End, string Speaker) {
                 TranslationLineRow rowTranslationLineRow = ((TranslationLineRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Text,
                         Start,
-                        End};
+                        End,
+                        Speaker};
                 rowTranslationLineRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTranslationLineRow);
                 return rowTranslationLineRow;
@@ -457,6 +468,7 @@ namespace TranscriptStudio.data_schema {
                 this.columnText = base.Columns["Text"];
                 this.columnStart = base.Columns["Start"];
                 this.columnEnd = base.Columns["End"];
+                this.columnSpeaker = base.Columns["Speaker"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -470,6 +482,8 @@ namespace TranscriptStudio.data_schema {
                 base.Columns.Add(this.columnStart);
                 this.columnEnd = new global::System.Data.DataColumn("End", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEnd);
+                this.columnSpeaker = new global::System.Data.DataColumn("Speaker", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSpeaker);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, false));
                 this.columnId.AutoIncrement = true;
@@ -480,6 +494,8 @@ namespace TranscriptStudio.data_schema {
                 this.columnText.AllowDBNull = false;
                 this.columnStart.AllowDBNull = false;
                 this.columnEnd.AllowDBNull = false;
+                this.columnSpeaker.AllowDBNull = false;
+                this.columnSpeaker.DefaultValue = ((string)("\"\""));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -733,7 +749,7 @@ namespace TranscriptStudio.data_schema {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TranslationUnitRow AddTranslationUnitRow(string FileName, string FileLength, System.DateTime DateCreated, System.DateTime LastEdit) {
+            public TranslationUnitRow AddTranslationUnitRow(string FileName, long FileLength, System.DateTime DateCreated, System.DateTime LastEdit) {
                 TranslationUnitRow rowTranslationUnitRow = ((TranslationUnitRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -777,7 +793,7 @@ namespace TranscriptStudio.data_schema {
                 base.Columns.Add(this.columnId);
                 this.columnFileName = new global::System.Data.DataColumn("FileName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFileName);
-                this.columnFileLength = new global::System.Data.DataColumn("FileLength", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnFileLength = new global::System.Data.DataColumn("FileLength", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFileLength);
                 this.columnDateCreated = new global::System.Data.DataColumn("DateCreated", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateCreated);
@@ -975,6 +991,17 @@ namespace TranscriptStudio.data_schema {
                     this[this.tableTranslationLine.EndColumn] = value;
                 }
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Speaker {
+                get {
+                    return ((string)(this[this.tableTranslationLine.SpeakerColumn]));
+                }
+                set {
+                    this[this.tableTranslationLine.SpeakerColumn] = value;
+                }
+            }
         }
         
         /// <summary>
@@ -1015,10 +1042,10 @@ namespace TranscriptStudio.data_schema {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string FileLength {
+            public long FileLength {
                 get {
                     try {
-                        return ((string)(this[this.tableTranslationUnit.FileLengthColumn]));
+                        return ((long)(this[this.tableTranslationUnit.FileLengthColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'FileLength\' in table \'TranslationUnit\' is DBNull.", e);

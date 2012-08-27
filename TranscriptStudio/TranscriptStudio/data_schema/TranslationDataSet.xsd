@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="TranslationDataSet" targetNamespace="http://tempuri.org/TranslationDataSet.xsd" xmlns:mstns="http://tempuri.org/TranslationDataSet.xsd" xmlns="http://tempuri.org/TranslationDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="TranslationDataSet" targetNamespace="urn:carvic:translation-studio" xmlns:mstns="urn:carvic:translation-studio" xmlns="urn:carvic:translation-studio" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
@@ -19,6 +19,7 @@
               <xs:element name="Text" msprop:Generator_ColumnVarNameInTable="columnText" msprop:Generator_ColumnPropNameInRow="Text" msprop:Generator_ColumnPropNameInTable="TextColumn" msprop:Generator_UserColumnName="Text" type="xs:string" />
               <xs:element name="Start" msprop:Generator_ColumnVarNameInTable="columnStart" msprop:Generator_ColumnPropNameInRow="Start" msprop:Generator_ColumnPropNameInTable="StartColumn" msprop:Generator_UserColumnName="Start" type="xs:double" />
               <xs:element name="End" msprop:Generator_ColumnVarNameInTable="columnEnd" msprop:Generator_ColumnPropNameInRow="End" msprop:Generator_ColumnPropNameInTable="EndColumn" msprop:Generator_UserColumnName="End" type="xs:double" />
+              <xs:element name="Speaker" msprop:Generator_ColumnVarNameInTable="columnSpeaker" msprop:Generator_ColumnPropNameInRow="Speaker" msprop:Generator_ColumnPropNameInTable="SpeakerColumn" msprop:Generator_UserColumnName="Speaker" type="xs:string" default="&quot;&quot;" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -27,7 +28,7 @@
             <xs:sequence>
               <xs:element name="Id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
               <xs:element name="FileName" msprop:Generator_ColumnVarNameInTable="columnFileName" msprop:Generator_ColumnPropNameInRow="FileName" msprop:Generator_ColumnPropNameInTable="FileNameColumn" msprop:Generator_UserColumnName="FileName" type="xs:string" />
-              <xs:element name="FileLength" msprop:Generator_ColumnVarNameInTable="columnFileLength" msprop:Generator_ColumnPropNameInRow="FileLength" msprop:Generator_ColumnPropNameInTable="FileLengthColumn" msprop:Generator_UserColumnName="FileLength" type="xs:string" minOccurs="0" />
+              <xs:element name="FileLength" msprop:Generator_ColumnVarNameInTable="columnFileLength" msprop:Generator_ColumnPropNameInRow="FileLength" msprop:Generator_ColumnPropNameInTable="FileLengthColumn" msprop:Generator_UserColumnName="FileLength" type="xs:long" minOccurs="0" />
               <xs:element name="DateCreated" msprop:Generator_ColumnVarNameInTable="columnDateCreated" msprop:Generator_ColumnPropNameInRow="DateCreated" msprop:Generator_ColumnPropNameInTable="DateCreatedColumn" msprop:Generator_UserColumnName="DateCreated" type="xs:dateTime" />
               <xs:element name="LastEdit" msprop:Generator_ColumnVarNameInTable="columnLastEdit" msprop:Generator_ColumnPropNameInRow="LastEdit" msprop:Generator_ColumnPropNameInTable="LastEditColumn" msprop:Generator_UserColumnName="LastEdit" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
