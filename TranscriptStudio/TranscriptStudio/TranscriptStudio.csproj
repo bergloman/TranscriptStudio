@@ -48,14 +48,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="data_schema\TranslationDataSet.cs">
-      <DependentUpon>TranslationDataSet.xsd</DependentUpon>
+    <Compile Include="data_schema\TranscriptDataSet.cs">
+      <DependentUpon>TranscriptDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="data_schema\TranslationDataSet.Designer.cs">
+    <Compile Include="data_schema\TranscriptDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TranslationDataSet.xsd</DependentUpon>
+      <DependentUpon>TranscriptDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -73,6 +73,7 @@
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -86,16 +87,16 @@
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="data_schema\TranslationDataSet.xsc">
-      <DependentUpon>TranslationDataSet.xsd</DependentUpon>
+    <None Include="data_schema\TranscriptDataSet.xsc">
+      <DependentUpon>TranscriptDataSet.xsd</DependentUpon>
     </None>
-    <None Include="data_schema\TranslationDataSet.xsd">
+    <None Include="data_schema\TranscriptDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>TranslationDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>TranscriptDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="data_schema\TranslationDataSet.xss">
-      <DependentUpon>TranslationDataSet.xsd</DependentUpon>
+    <None Include="data_schema\TranscriptDataSet.xss">
+      <DependentUpon>TranscriptDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

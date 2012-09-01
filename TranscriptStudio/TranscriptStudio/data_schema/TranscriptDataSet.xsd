@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TranscriptDataSet" targetNamespace="urn:carvic:Transcript-studio" xmlns:mstns="urn:carvic:Transcript-studio" xmlns="urn:carvic:Transcript-studio" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="TranscriptDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="TranscriptDataSet" msprop:Generator_UserDSName="TranscriptDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="TranscriptLine" msprop:Generator_TableClassName="TranscriptLineDataTable" msprop:Generator_TableVarName="tableTranscriptLine" msprop:Generator_TablePropName="TranscriptLine" msprop:Generator_RowDeletingName="TranscriptLineRowDeleting" msprop:Generator_UserTableName="TranscriptLine" msprop:Generator_RowChangingName="TranscriptLineRowChanging" msprop:Generator_RowEvHandlerName="TranscriptLineRowChangeEventHandler" msprop:Generator_RowDeletedName="TranscriptLineRowDeleted" msprop:Generator_RowEvArgName="TranscriptLineRowChangeEvent" msprop:Generator_RowChangedName="TranscriptLineRowChanged" msprop:Generator_RowClassName="TranscriptLineRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="Text" msprop:Generator_ColumnVarNameInTable="columnText" msprop:Generator_ColumnPropNameInRow="Text" msprop:Generator_ColumnPropNameInTable="TextColumn" msprop:Generator_UserColumnName="Text" type="xs:string" />
+              <xs:element name="Start" msprop:Generator_ColumnVarNameInTable="columnStart" msprop:Generator_ColumnPropNameInRow="Start" msprop:Generator_ColumnPropNameInTable="StartColumn" msprop:Generator_UserColumnName="Start" type="xs:double" />
+              <xs:element name="End" msprop:Generator_ColumnVarNameInTable="columnEnd" msprop:Generator_ColumnPropNameInRow="End" msprop:Generator_ColumnPropNameInTable="EndColumn" msprop:Generator_UserColumnName="End" type="xs:double" />
+              <xs:element name="Speaker" msprop:Generator_ColumnVarNameInTable="columnSpeaker" msprop:Generator_ColumnPropNameInRow="Speaker" msprop:Generator_ColumnPropNameInTable="SpeakerColumn" msprop:Generator_UserColumnName="Speaker" type="xs:string" default="&quot;&quot;" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TranscriptUnit" msprop:Generator_TableClassName="TranscriptUnitDataTable" msprop:Generator_TableVarName="tableTranscriptUnit" msprop:Generator_TablePropName="TranscriptUnit" msprop:Generator_RowDeletingName="TranscriptUnitRowDeleting" msprop:Generator_UserTableName="TranscriptUnit" msprop:Generator_RowChangingName="TranscriptUnitRowChanging" msprop:Generator_RowEvHandlerName="TranscriptUnitRowChangeEventHandler" msprop:Generator_RowDeletedName="TranscriptUnitRowDeleted" msprop:Generator_RowEvArgName="TranscriptUnitRowChangeEvent" msprop:Generator_RowChangedName="TranscriptUnitRowChanged" msprop:Generator_RowClassName="TranscriptUnitRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="FileName" msprop:Generator_ColumnVarNameInTable="columnFileName" msprop:Generator_ColumnPropNameInRow="FileName" msprop:Generator_ColumnPropNameInTable="FileNameColumn" msprop:Generator_UserColumnName="FileName" type="xs:string" />
+              <xs:element name="FileLength" msprop:Generator_ColumnVarNameInTable="columnFileLength" msprop:Generator_ColumnPropNameInRow="FileLength" msprop:Generator_ColumnPropNameInTable="FileLengthColumn" msprop:Generator_UserColumnName="FileLength" type="xs:long" minOccurs="0" />
+              <xs:element name="DateCreated" msprop:Generator_ColumnVarNameInTable="columnDateCreated" msprop:Generator_ColumnPropNameInRow="DateCreated" msprop:Generator_ColumnPropNameInTable="DateCreatedColumn" msprop:Generator_UserColumnName="DateCreated" type="xs:dateTime" />
+              <xs:element name="LastEdit" msprop:Generator_ColumnVarNameInTable="columnLastEdit" msprop:Generator_ColumnPropNameInRow="LastEdit" msprop:Generator_ColumnPropNameInTable="LastEditColumn" msprop:Generator_UserColumnName="LastEdit" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Languages" msprop:Generator_TableClassName="LanguagesDataTable" msprop:Generator_TableVarName="tableLanguages" msprop:Generator_TablePropName="Languages" msprop:Generator_RowDeletingName="LanguagesRowDeleting" msprop:Generator_UserTableName="Languages" msprop:Generator_RowChangingName="LanguagesRowChanging" msprop:Generator_RowEvHandlerName="LanguagesRowChangeEventHandler" msprop:Generator_RowDeletedName="LanguagesRowDeleted" msprop:Generator_RowEvArgName="LanguagesRowChangeEvent" msprop:Generator_RowChangedName="LanguagesRowChanged" msprop:Generator_RowClassName="LanguagesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" />
+              <xs:element name="Title" msprop:Generator_ColumnVarNameInTable="columnTitle" msprop:Generator_ColumnPropNameInRow="Title" msprop:Generator_ColumnPropNameInTable="TitleColumn" msprop:Generator_UserColumnName="Title" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TranscriptLineLang" msprop:Generator_TableClassName="TranscriptLineLangDataTable" msprop:Generator_TableVarName="tableTranscriptLineLang" msprop:Generator_TablePropName="TranscriptLineLang" msprop:Generator_RowDeletingName="TranscriptLineLangRowDeleting" msprop:Generator_UserTableName="TranscriptLineLang" msprop:Generator_RowChangingName="TranscriptLineLangRowChanging" msprop:Generator_RowEvHandlerName="TranscriptLineLangRowChangeEventHandler" msprop:Generator_RowDeletedName="TranscriptLineLangRowDeleted" msprop:Generator_RowEvArgName="TranscriptLineLangRowChangeEvent" msprop:Generator_RowChangedName="TranscriptLineLangRowChanged" msprop:Generator_RowClassName="TranscriptLineLangRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="IdTranscriptLine" msprop:Generator_ColumnVarNameInTable="columnIdTranscriptLine" msprop:Generator_ColumnPropNameInRow="IdTranscriptLine" msprop:Generator_ColumnPropNameInTable="IdTranscriptLineColumn" msprop:Generator_UserColumnName="IdTranscriptLine" type="xs:int" />
+              <xs:element name="IdLanguage" msprop:Generator_ColumnVarNameInTable="columnIdLanguage" msprop:Generator_ColumnPropNameInRow="IdLanguage" msprop:Generator_ColumnPropNameInTable="IdLanguageColumn" msprop:Generator_UserColumnName="IdLanguage" type="xs:string" />
+              <xs:element name="Text" msprop:Generator_ColumnVarNameInTable="columnText" msprop:Generator_ColumnPropNameInRow="Text" msprop:Generator_ColumnPropNameInTable="TextColumn" msprop:Generator_UserColumnName="Text" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:TranscriptLine" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="TranscriptUnit_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:TranscriptUnit" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="Languages_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:Languages" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="TranscriptLineLang_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:TranscriptLineLang" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:keyref name="FK_TranscriptLine_TranscriptLineLang" refer="Constraint1" msprop:rel_Generator_UserChildTable="TranscriptLineLang" msprop:rel_Generator_ChildPropName="GetTranscriptLineLangRows" msprop:rel_Generator_ParentPropName="TranscriptLineRow" msprop:rel_Generator_UserRelationName="FK_TranscriptLine_TranscriptLineLang" msprop:rel_Generator_RelationVarName="relationFK_TranscriptLine_TranscriptLineLang" msprop:rel_Generator_UserParentTable="TranscriptLine">
+      <xs:selector xpath=".//mstns:TranscriptLineLang" />
+      <xs:field xpath="mstns:IdTranscriptLine" />
+    </xs:keyref>
+    <xs:keyref name="FK_Languages_TranscriptLineLang" refer="Languages_Constraint1" msprop:rel_Generator_UserChildTable="TranscriptLineLang" msprop:rel_Generator_ChildPropName="GetTranscriptLineLangRows" msprop:rel_Generator_ParentPropName="LanguagesRow" msprop:rel_Generator_UserRelationName="FK_Languages_TranscriptLineLang" msprop:rel_Generator_RelationVarName="relationFK_Languages_TranscriptLineLang" msprop:rel_Generator_UserParentTable="Languages">
+      <xs:selector xpath=".//mstns:TranscriptLineLang" />
+      <xs:field xpath="mstns:IdLanguage" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

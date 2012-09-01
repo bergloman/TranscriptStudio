@@ -41,7 +41,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 91.70731F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.292683F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 151F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 154F));
             this.tableLayoutPanel1.Controls.Add(this.lblLast, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblOpen, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnNew, 2, 0);
@@ -63,9 +63,9 @@
             this.lblLast.Location = new System.Drawing.Point(30, 180);
             this.lblLast.Margin = new System.Windows.Forms.Padding(30);
             this.lblLast.Name = "lblLast";
-            this.lblLast.Size = new System.Drawing.Size(286, 13);
+            this.lblLast.Size = new System.Drawing.Size(285, 13);
             this.lblLast.TabIndex = 7;
-            this.lblLast.Text = "Click this button to open the most recent translation project.";
+            this.lblLast.Text = "Click this button to open the most recent Transcript project.";
             // 
             // lblOpen
             // 
@@ -73,17 +73,17 @@
             this.lblOpen.Location = new System.Drawing.Point(30, 105);
             this.lblOpen.Margin = new System.Windows.Forms.Padding(30);
             this.lblOpen.Name = "lblOpen";
-            this.lblOpen.Size = new System.Drawing.Size(302, 13);
+            this.lblOpen.Size = new System.Drawing.Size(301, 13);
             this.lblOpen.TabIndex = 5;
-            this.lblOpen.Text = "Click this button to open an existing translation project from file.";
+            this.lblOpen.Text = "Click this button to open an existing Transcript project from file.";
             // 
             // btnNew
             // 
             this.btnNew.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNew.Location = new System.Drawing.Point(465, 15);
+            this.btnNew.Location = new System.Drawing.Point(462, 15);
             this.btnNew.Margin = new System.Windows.Forms.Padding(15);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(122, 45);
+            this.btnNew.Size = new System.Drawing.Size(125, 45);
             this.btnNew.TabIndex = 0;
             this.btnNew.Text = "New project";
             this.btnNew.UseVisualStyleBackColor = true;
@@ -92,10 +92,10 @@
             // btnOpen
             // 
             this.btnOpen.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOpen.Location = new System.Drawing.Point(465, 90);
+            this.btnOpen.Location = new System.Drawing.Point(462, 90);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(15);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(122, 45);
+            this.btnOpen.Size = new System.Drawing.Size(125, 45);
             this.btnOpen.TabIndex = 1;
             this.btnOpen.Text = "Open project";
             this.btnOpen.UseVisualStyleBackColor = true;
@@ -104,10 +104,10 @@
             // btnLast
             // 
             this.btnLast.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnLast.Location = new System.Drawing.Point(465, 165);
+            this.btnLast.Location = new System.Drawing.Point(462, 165);
             this.btnLast.Margin = new System.Windows.Forms.Padding(15);
             this.btnLast.Name = "btnLast";
-            this.btnLast.Size = new System.Drawing.Size(122, 45);
+            this.btnLast.Size = new System.Drawing.Size(125, 45);
             this.btnLast.TabIndex = 2;
             this.btnLast.Text = "Last project";
             this.btnLast.UseVisualStyleBackColor = true;
@@ -119,9 +119,9 @@
             this.lblNew.Location = new System.Drawing.Point(30, 30);
             this.lblNew.Margin = new System.Windows.Forms.Padding(30);
             this.lblNew.Name = "lblNew";
-            this.lblNew.Size = new System.Drawing.Size(273, 13);
+            this.lblNew.Size = new System.Drawing.Size(272, 13);
             this.lblNew.TabIndex = 3;
-            this.lblNew.Text = "Click this button to create new, empty translation project.";
+            this.lblNew.Text = "Click this button to create new, empty Transcript project.";
             // 
             // StartForm
             // 
