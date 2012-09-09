@@ -43,9 +43,9 @@ namespace TranscriptStudio {
         }
 
         void EnableToolstripButtons(bool enable) {
-            ToolStripBtnExportExcel.Enabled = enable;
-            ToolStripBtnExportSrt.Enabled = enable;
-            ToolStripBtnSave.Enabled = enable;
+            tsbtnExportSrt.Enabled = enable;
+            tsbtnExportXls.Enabled = enable;
+            tsbtnSave.Enabled = enable;
         }
         bool NewProject() {
             if (saveFileDialog1.ShowDialog(this) != DialogResult.OK)
@@ -99,11 +99,11 @@ namespace TranscriptStudio {
                 axWmPlayer.settings.rate = 1;
             } else if (e.KeyCode == Keys.F8) {
                 axWmPlayer.settings.rate = model.FFSpeed;
-            } else if (e.KeyCode == Keys.O && e.Control) {
-                if (openFileDialog1.ShowDialog(this) == System.Windows.Forms.DialogResult.OK) {
-                    axWmPlayer.URL = openFileDialog1.FileName;
-                    model.IsPaused = false;
-                }
+                /*} else if (e.KeyCode == Keys.O && e.Control) {
+                    if (openFileDialog1.ShowDialog(this) == System.Windows.Forms.DialogResult.OK) {
+                        axWmPlayer.URL = openFileDialog1.FileName;
+                        model.IsPaused = false;
+                    } */
             } else if (e.KeyCode == Keys.S && e.Control) {
                 model.SaveMainFile();
             } else if (e.KeyCode == Keys.Enter) {
@@ -123,6 +123,11 @@ namespace TranscriptStudio {
         }
 
         private void MainForm_Shown(object sender, EventArgs e) {
+
+            this.dataGridView1.Enabled = false;
+            this.tbEntryField.Enabled = false;
+            this.axWmPlayer.Enabled = false;
+
             var start_form = new StartForm();
             start_form.ShowDialog();
             bool res = false;
@@ -132,10 +137,10 @@ namespace TranscriptStudio {
                 case StartForm.StartFormResult.Last: break;
             }
             if (res) {
+                this.dataGridView1.Enabled = true;
+                this.tbEntryField.Enabled = true;
+                this.axWmPlayer.Enabled = true;
                 this.tbEntryField.Focus();
-            } else {
-                this.EditPanel.Enabled = false;
-                this.WMPlayerpanel.Enabled = false;
             }
         }
 
@@ -147,20 +152,30 @@ namespace TranscriptStudio {
             model.SaveMainFile();
         }
 
-        private void MainToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {
-            if (e.ClickedItem == ToolStripBtnExportExcel) {
-                model.ExportExcel(@"d:\temp\viktor\a.xls");
-            } else if (e.ClickedItem == ToolStripBtnExportSrt) {
-                model.ExportSrt(@"d:\temp\viktor\a.srt");
-            } else if (e.ClickedItem == ToolStripBtnNew) {
-                model.SaveMainFile();
-                this.NewProject();
-            } else if (e.ClickedItem == ToolStripBtnOpen) {
-                model.SaveMainFile();
-                this.OpenProject();
-            } else if (e.ClickedItem == ToolStripBtnSave) {
-                model.SaveMainFile();
-            }
+        private void tsbtnExportXls_Click(object sender, EventArgs e) {
+            model.ExportExcel(@"d:\temp\viktor\a.xls");
+        }
+
+        private void tsbtnExportSrt_Click(object sender, EventArgs e) {
+            model.ExportSrt();
+        }
+
+        private void tsbtnSave_Click(object sender, EventArgs e) {
+            model.SaveMainFile();
+        }
+
+        private void tsbtnNew_Click(object sender, EventArgs e) {
+            model.SaveMainFile();
+            this.NewProject();
+        }
+
+        private void tsbtnOpen_Click(object sender, EventArgs e) {
+            model.SaveMainFile();
+            this.OpenProject();
+        }
+
+        private void tsbtnHelp_Click(object sender, EventArgs e) {
+            // TODO about box, help
         }
     }
 
@@ -193,17 +208,32 @@ namespace TranscriptStudio {
             DataSet.WriteXml(MainXmlFile, XmlWriteMode.IgnoreSchema);
         }
 
-        public void ExportExcel(string file_name) {
+        public void ExportExcel(string file_name = null) {
+            if (file_name == null)
+                file_name = Path.ChangeExtension(DataSet.TranscriptUnit.First().FileName, "csv");
             var lines = (from x in DataSet.TranscriptLine
                          orderby x.Start
                          select x.Text).ToList();
             File.WriteAllLines(file_name, lines, Encoding.UTF8);
         }
 
-        public void ExportSrt(string file_name) {
+        string ToSrtTime(double val) {
+            int h = (int)val / (60 * 60);
+            int m = (int)(val / 60 - h * 60);
+            int s = (int)(val - h * 60 * 60 - m * 60);
+            int ms = (int)Math.Floor(1000 * (val - (int)val));
+            return string.Format("{0:d2}:{1:d2}:{2:d2},{3:d3}", h, m, s, ms);
+        }
+
+        public void ExportSrt(string file_name = null) {
+            if (file_name == null)
+                file_name = Path.ChangeExtension(DataSet.TranscriptUnit.First().FileName, "srt");
             var lines = (from x in DataSet.TranscriptLine
                          orderby x.Start
-                         select x.Text).ToList();
+                         select
+                            x.Id + Environment.NewLine +
+                            ToSrtTime(x.Start) + " --> " + ToSrtTime(x.End) + Environment.NewLine +
+                            x.Text + Environment.NewLine).ToList();
             File.WriteAllLines(file_name, lines, Encoding.UTF8);
         }
     }
