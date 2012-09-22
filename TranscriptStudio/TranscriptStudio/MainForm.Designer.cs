@@ -34,7 +34,14 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.axWmPlayer = new AxWMPLib.AxWindowsMediaPlayer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.startDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.endDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Speaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TranscriptLineBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Data = new TranscriptStudio.data_schema.TranscriptDataSet();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -56,25 +63,18 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tbEntryField = new System.Windows.Forms.TextBox();
-            this.Speaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.endDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.Data = new TranscriptStudio.data_schema.TranscriptDataSet();
             this.MainStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWmPlayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TranscriptLineBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Data)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Data)).BeginInit();
             this.SuspendLayout();
             // 
             // MainStatusStrip
@@ -123,15 +123,71 @@
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
             // 
+            // startDataGridViewTextBoxColumn
+            // 
+            this.startDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.startDataGridViewTextBoxColumn.DataPropertyName = "Start";
+            this.startDataGridViewTextBoxColumn.HeaderText = "Start";
+            this.startDataGridViewTextBoxColumn.Name = "startDataGridViewTextBoxColumn";
+            this.startDataGridViewTextBoxColumn.Width = 54;
+            // 
+            // endDataGridViewTextBoxColumn
+            // 
+            this.endDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.endDataGridViewTextBoxColumn.DataPropertyName = "End";
+            this.endDataGridViewTextBoxColumn.HeaderText = "End";
+            this.endDataGridViewTextBoxColumn.Name = "endDataGridViewTextBoxColumn";
+            this.endDataGridViewTextBoxColumn.Width = 51;
+            // 
+            // textDataGridViewTextBoxColumn
+            // 
+            this.textDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.textDataGridViewTextBoxColumn.DataPropertyName = "Text";
+            this.textDataGridViewTextBoxColumn.HeaderText = "Text";
+            this.textDataGridViewTextBoxColumn.Name = "textDataGridViewTextBoxColumn";
+            this.textDataGridViewTextBoxColumn.Width = 53;
+            // 
+            // Speaker
+            // 
+            this.Speaker.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Speaker.DataPropertyName = "Speaker";
+            this.Speaker.HeaderText = "Speaker";
+            this.Speaker.Name = "Speaker";
+            this.Speaker.Width = 72;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.Width = 41;
+            // 
             // TranscriptLineBindingSource
             // 
             this.TranscriptLineBindingSource.AllowNew = false;
             this.TranscriptLineBindingSource.DataMember = "TranscriptLine";
             this.TranscriptLineBindingSource.DataSource = this.dataBindingSource;
             // 
+            // dataBindingSource
+            // 
+            this.dataBindingSource.DataSource = this.Data;
+            this.dataBindingSource.Position = 0;
+            this.dataBindingSource.CurrentChanged += new System.EventHandler(this.dataBindingSource_CurrentChanged);
+            // 
+            // Data
+            // 
+            this.Data.DataSetName = "TranscriptDataSet";
+            this.Data.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Title = "Open existing file";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Title = "Save project file";
             // 
             // toolStrip1
             // 
@@ -324,57 +380,6 @@
             this.tbEntryField.TabIndex = 6;
             this.tbEntryField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
-            // Speaker
-            // 
-            this.Speaker.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Speaker.DataPropertyName = "Speaker";
-            this.Speaker.HeaderText = "Speaker";
-            this.Speaker.Name = "Speaker";
-            this.Speaker.Width = 72;
-            // 
-            // startDataGridViewTextBoxColumn
-            // 
-            this.startDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.startDataGridViewTextBoxColumn.DataPropertyName = "Start";
-            this.startDataGridViewTextBoxColumn.HeaderText = "Start";
-            this.startDataGridViewTextBoxColumn.Name = "startDataGridViewTextBoxColumn";
-            this.startDataGridViewTextBoxColumn.Width = 54;
-            // 
-            // endDataGridViewTextBoxColumn
-            // 
-            this.endDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.endDataGridViewTextBoxColumn.DataPropertyName = "End";
-            this.endDataGridViewTextBoxColumn.HeaderText = "End";
-            this.endDataGridViewTextBoxColumn.Name = "endDataGridViewTextBoxColumn";
-            this.endDataGridViewTextBoxColumn.Width = 51;
-            // 
-            // textDataGridViewTextBoxColumn
-            // 
-            this.textDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.textDataGridViewTextBoxColumn.DataPropertyName = "Text";
-            this.textDataGridViewTextBoxColumn.HeaderText = "Text";
-            this.textDataGridViewTextBoxColumn.Name = "textDataGridViewTextBoxColumn";
-            this.textDataGridViewTextBoxColumn.Width = 53;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.Width = 41;
-            // 
-            // dataBindingSource
-            // 
-            this.dataBindingSource.DataSource = this.Data;
-            this.dataBindingSource.Position = 0;
-            this.dataBindingSource.CurrentChanged += new System.EventHandler(this.dataBindingSource_CurrentChanged);
-            // 
-            // Data
-            // 
-            this.Data.DataSetName = "TranscriptDataSet";
-            this.Data.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -392,6 +397,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.axWmPlayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TranscriptLineBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Data)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -400,8 +407,6 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Data)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

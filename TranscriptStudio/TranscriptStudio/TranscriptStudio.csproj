@@ -77,6 +77,12 @@
     <Compile Include="StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TimeSlideForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeSlideForm.Designer.cs">
+      <DependentUpon>TimeSlideForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainAboutBox.resx">
       <DependentUpon>MainAboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -96,6 +102,9 @@
     </Compile>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSlideForm.resx">
+      <DependentUpon>TimeSlideForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="data_schema\TranscriptDataSet.xsc">
       <DependentUpon>TranscriptDataSet.xsd</DependentUpon>

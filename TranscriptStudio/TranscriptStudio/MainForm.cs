@@ -18,8 +18,7 @@ namespace TranscriptStudio {
         public MainForm() {
             InitializeComponent();
 
-            model = new MainFormModel() {
-                DataSet = this.Data,
+            model = new MainFormModel(this.Data) {
                 FFSpeed = 1.5,
                 IsPaused = false,
                 TempXmlFile = @"d:\temp\viktor\a.xml" // TODO
@@ -31,11 +30,11 @@ namespace TranscriptStudio {
                 return false;
 
             model.MainXmlFile = openFileDialog1.FileName;
-            model.DataSet.ReadXml(model.MainXmlFile, XmlReadMode.IgnoreSchema);
+            model.ReadXmlFile();
             model.SaveTempFile();
 
-            this.TranscriptLineBindingSource.DataSource = model.DataSet.TranscriptLine;
-            axWmPlayer.URL = model.DataSet.TranscriptUnit.First().FileName;
+            this.TranscriptLineBindingSource.DataSource = model.GetLinesDataTable();
+            axWmPlayer.URL = model.GetMediaFileName();
             model.IsPaused = false;
             EnableToolstripButtons(true);
             return true;
@@ -46,6 +45,7 @@ namespace TranscriptStudio {
             tsbtnExportXls.Enabled = enable;
             tsbtnSave.Enabled = enable;
         }
+
         bool NewProject() {
             if (saveFileDialog1.ShowDialog(this) != DialogResult.OK)
                 return false;
@@ -53,17 +53,12 @@ namespace TranscriptStudio {
             if (openFileDialog1.ShowDialog(this) != DialogResult.OK)
                 return false;
 
-            model.MainXmlFile = saveFileDialog1.FileName;
-
-            model.DataSet = new data_schema.TranscriptDataSet();
-            model.DataSet.TranscriptUnit.AddTranscriptUnitRow(openFileDialog1.FileName, 0, DateTime.Now, DateTime.Now);
-            model.DataSet.TranscriptLine.Clear();
-            model.DataSet.WriteXml(saveFileDialog1.FileName, XmlWriteMode.WriteSchema);
+            model.InitNewProject(saveFileDialog1.FileName, openFileDialog1.FileName);
             model.SaveMainFile();
             model.IsPaused = false;
 
-            axWmPlayer.URL = model.DataSet.TranscriptUnit.First().FileName;
-            this.TranscriptLineBindingSource.DataSource = model.DataSet.TranscriptLine;
+            axWmPlayer.URL = model.GetMediaFileName();
+            this.TranscriptLineBindingSource.DataSource = model.GetLinesDataTable();
             EnableToolstripButtons(true);
             return true;
         }
@@ -213,29 +208,64 @@ namespace TranscriptStudio {
         }
 
         private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e) {
-            
+
         }
     }
 
     class MainFormModel {
+
+        public MainFormModel(data_schema.TranscriptDataSet data) {
+            DataSet = data;
+        }
+
         public bool IsPaused { get; set; }
         public double FFSpeed { get; set; }
         public double CurrentPosition { get; set; }
         public string TempXmlFile { get; set; }
         public string MainXmlFile { get; set; }
-        public data_schema.TranscriptDataSet DataSet { get; set; }
+        data_schema.TranscriptDataSet DataSet { get; set; }
+
+        public void InitNewProject(string main_xml_file, string media_file) {
+            MainXmlFile = main_xml_file;
+            DataSet = new data_schema.TranscriptDataSet();
+            DataSet.TranscriptUnit.AddTranscriptUnitRow(media_file, 0, DateTime.Now, DateTime.Now);
+            DataSet.TranscriptLine.Clear();
+            DataSet.WriteXml(main_xml_file, XmlWriteMode.IgnoreSchema);
+        }
+
+        public string GetMediaFileName() {
+            return DataSet.TranscriptUnit.First().FileName;
+        }
+
+        public void ReadXmlFile() {
+            DataSet.ReadXml(MainXmlFile, XmlReadMode.IgnoreSchema);
+        }
+
+        public data_schema.TranscriptDataSet.TranscriptLineDataTable GetLinesDataTable() {
+            return this.DataSet.TranscriptLine;
+        }
+
+        void RecalcIds() {
+
+            // TODO
+        }
 
         public void MoveCurrentLine(int id, bool move_up = true) {
-            var target = DataSet.TranscriptLine.Where(x => x.Id == id).First();     
+            var target = DataSet.TranscriptLine.Where(x => x.Id == id).First();
             // identify neighbouring line
             //data_schema.TranscriptDataSet.TranscriptLineRow neighbour;
             // TODO
         }
 
+        public void AddLine(string Text, double Start, double End, string Speaker) {
+            DataSet.TranscriptLine.AddTranscriptLineRow(-1, Text, Start, End, Speaker);
+            RecalcIds();
+        }
+
         public void SplitLine(int id, bool copy = true) {
             var target = DataSet.TranscriptLine.Where(x => x.Id == id).First();
             var middle = target.Start + (target.End - target.Start) / 2;
-            DataSet.TranscriptLine.AddTranscriptLineRow(target.Text, middle, target.End, target.Speaker);
+            AddLine(target.Text, middle, target.End, target.Speaker);
             target.End = middle;
             if (!copy)
                 target.Text = "";
@@ -243,7 +273,7 @@ namespace TranscriptStudio {
 
         public void PushNewTranscriptLine(string s, double new_position) {
             if (s.Length != 0) {
-                DataSet.TranscriptLine.AddTranscriptLineRow(s, CurrentPosition, new_position, "");
+                AddLine(s, CurrentPosition, new_position, "");
                 CurrentPosition = new_position;
                 SaveTempFile();
             }

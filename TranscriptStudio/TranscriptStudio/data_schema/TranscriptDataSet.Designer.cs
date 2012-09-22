@@ -32,9 +32,9 @@ namespace TranscriptStudio.data_schema {
         
         private TranscriptLineLangDataTable tableTranscriptLineLang;
         
-        private global::System.Data.DataRelation relationFK_TranscriptLine_TranscriptLineLang;
-        
         private global::System.Data.DataRelation relationFK_Languages_TranscriptLineLang;
+        
+        private global::System.Data.DataRelation relationFK_TranscriptLine_TranscriptLineLang;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -270,8 +270,8 @@ namespace TranscriptStudio.data_schema {
                     this.tableTranscriptLineLang.InitVars();
                 }
             }
-            this.relationFK_TranscriptLine_TranscriptLineLang = this.Relations["FK_TranscriptLine_TranscriptLineLang"];
             this.relationFK_Languages_TranscriptLineLang = this.Relations["FK_Languages_TranscriptLineLang"];
+            this.relationFK_TranscriptLine_TranscriptLineLang = this.Relations["FK_TranscriptLine_TranscriptLineLang"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -291,13 +291,6 @@ namespace TranscriptStudio.data_schema {
             this.tableTranscriptLineLang = new TranscriptLineLangDataTable();
             base.Tables.Add(this.tableTranscriptLineLang);
             global::System.Data.ForeignKeyConstraint fkc;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_TranscriptLine_TranscriptLineLang", new global::System.Data.DataColumn[] {
-                        this.tableTranscriptLine.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableTranscriptLineLang.IdTranscriptLineColumn});
-            this.tableTranscriptLineLang.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.Cascade;
-            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             fkc = new global::System.Data.ForeignKeyConstraint("FK_Languages_TranscriptLineLang", new global::System.Data.DataColumn[] {
                         this.tableLanguages.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableTranscriptLineLang.IdLanguageColumn});
@@ -305,14 +298,21 @@ namespace TranscriptStudio.data_schema {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
-            this.relationFK_TranscriptLine_TranscriptLineLang = new global::System.Data.DataRelation("FK_TranscriptLine_TranscriptLineLang", new global::System.Data.DataColumn[] {
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_TranscriptLine_TranscriptLineLang", new global::System.Data.DataColumn[] {
                         this.tableTranscriptLine.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableTranscriptLineLang.IdTranscriptLineColumn}, false);
-            this.Relations.Add(this.relationFK_TranscriptLine_TranscriptLineLang);
+                        this.tableTranscriptLineLang.IdTranscriptLineColumn});
+            this.tableTranscriptLineLang.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.Cascade;
+            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             this.relationFK_Languages_TranscriptLineLang = new global::System.Data.DataRelation("FK_Languages_TranscriptLineLang", new global::System.Data.DataColumn[] {
                         this.tableLanguages.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableTranscriptLineLang.IdLanguageColumn}, false);
             this.Relations.Add(this.relationFK_Languages_TranscriptLineLang);
+            this.relationFK_TranscriptLine_TranscriptLineLang = new global::System.Data.DataRelation("FK_TranscriptLine_TranscriptLineLang", new global::System.Data.DataColumn[] {
+                        this.tableTranscriptLine.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableTranscriptLineLang.IdTranscriptLineColumn}, false);
+            this.Relations.Add(this.relationFK_TranscriptLine_TranscriptLineLang);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -533,10 +533,10 @@ namespace TranscriptStudio.data_schema {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TranscriptLineRow AddTranscriptLineRow(string Text, double Start, double End, string Speaker) {
+            public TranscriptLineRow AddTranscriptLineRow(int Id, string Text, double Start, double End, string Speaker) {
                 TranscriptLineRow rowTranscriptLineRow = ((TranscriptLineRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
+                        Id,
                         Text,
                         Start,
                         End,
@@ -585,7 +585,6 @@ namespace TranscriptStudio.data_schema {
                 base.Columns.Add(this.columnSpeaker);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, false));
-                this.columnId.AutoIncrement = true;
                 this.columnId.AutoIncrementSeed = 1;
                 this.columnId.AllowDBNull = false;
                 this.columnId.Unique = true;
@@ -1905,23 +1904,23 @@ namespace TranscriptStudio.data_schema {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TranscriptLineRow TranscriptLineRow {
-                get {
-                    return ((TranscriptLineRow)(this.GetParentRow(this.Table.ParentRelations["FK_TranscriptLine_TranscriptLineLang"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_TranscriptLine_TranscriptLineLang"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public LanguagesRow LanguagesRow {
                 get {
                     return ((LanguagesRow)(this.GetParentRow(this.Table.ParentRelations["FK_Languages_TranscriptLineLang"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_Languages_TranscriptLineLang"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TranscriptLineRow TranscriptLineRow {
+                get {
+                    return ((TranscriptLineRow)(this.GetParentRow(this.Table.ParentRelations["FK_TranscriptLine_TranscriptLineLang"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_TranscriptLine_TranscriptLineLang"]);
                 }
             }
             
