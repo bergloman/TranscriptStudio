@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TranscriptStudio")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Application that provides useful utilities and features needed when writing transcripts for videos and other recordings.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Carvic d.o.o.")]
 [assembly: AssemblyProduct("TranscriptStudio")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Carvic d.o.o.")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

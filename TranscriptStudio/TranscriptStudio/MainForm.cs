@@ -24,7 +24,6 @@ namespace TranscriptStudio {
                 IsPaused = false,
                 TempXmlFile = @"d:\temp\viktor\a.xml" // TODO
             };
-
         }
 
         bool OpenProject() {
@@ -119,6 +118,7 @@ namespace TranscriptStudio {
             if (s.Length != 0) {
                 model.PushNewTranscriptLine(s, axWmPlayer.Ctlcontrols.currentPosition);
                 tbEntryField.Text = "";
+                //dataGridView1.sele
             }
         }
 
@@ -141,6 +141,7 @@ namespace TranscriptStudio {
                 this.tbEntryField.Enabled = true;
                 this.axWmPlayer.Enabled = true;
                 this.tbEntryField.Focus();
+                dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Ascending);
             }
         }
 
@@ -175,7 +176,44 @@ namespace TranscriptStudio {
         }
 
         private void tsbtnHelp_Click(object sender, EventArgs e) {
-            // TODO about box, help
+            var form = new MainAboutBox();
+            form.ShowDialog();
+        }
+
+        private void tsbtnTimeSlide_Click(object sender, EventArgs e) {
+            // TODO show dialog for time-sliding
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e) {
+            // insert new line above current line
+            var id = GetCurrentRowId();
+            model.SplitLine(id, false);
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e) {
+            // move row up
+            var id = GetCurrentRowId();
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e) {
+            // move row down
+            var id = GetCurrentRowId();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e) {
+            // split current row
+            var id = GetCurrentRowId();
+            model.SplitLine(id);
+        }
+
+        private int GetCurrentRowId() {
+            var data_row_view = (DataRowView)TranscriptLineBindingSource.Current;
+            var id = (int)data_row_view.Row[0];
+            return id;
+        }
+
+        private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e) {
+            
         }
     }
 
@@ -186,6 +224,22 @@ namespace TranscriptStudio {
         public string TempXmlFile { get; set; }
         public string MainXmlFile { get; set; }
         public data_schema.TranscriptDataSet DataSet { get; set; }
+
+        public void MoveCurrentLine(int id, bool move_up = true) {
+            var target = DataSet.TranscriptLine.Where(x => x.Id == id).First();     
+            // identify neighbouring line
+            //data_schema.TranscriptDataSet.TranscriptLineRow neighbour;
+            // TODO
+        }
+
+        public void SplitLine(int id, bool copy = true) {
+            var target = DataSet.TranscriptLine.Where(x => x.Id == id).First();
+            var middle = target.Start + (target.End - target.Start) / 2;
+            DataSet.TranscriptLine.AddTranscriptLineRow(target.Text, middle, target.End, target.Speaker);
+            target.End = middle;
+            if (!copy)
+                target.Text = "";
+        }
 
         public void PushNewTranscriptLine(string s, double new_position) {
             if (s.Length != 0) {

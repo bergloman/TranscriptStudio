@@ -35,8 +35,6 @@
             this.axWmPlayer = new AxWMPLib.AxWindowsMediaPlayer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.TranscriptLineBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.Data = new TranscriptStudio.data_schema.TranscriptDataSet();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -46,28 +44,37 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnExportXls = new System.Windows.Forms.ToolStripButton();
             this.tsbtnExportSrt = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbtnTimeSlide = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtnHelp = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tbEntryField = new System.Windows.Forms.TextBox();
+            this.Speaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.endDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Speaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbEntryField = new System.Windows.Forms.TextBox();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.dataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Data = new TranscriptStudio.data_schema.TranscriptDataSet();
             this.MainStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWmPlayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TranscriptLineBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Data)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Data)).BeginInit();
             this.SuspendLayout();
             // 
             // MainStatusStrip
@@ -83,7 +90,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(627, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(627, 15);
             this.toolStripStatusLabel1.Text = "F1 = -10sec | F2 = -3sec | F3 = +3sec | F4 = +10sec | F5 = play/pause | F6 = slow" +
                 " | F7 = normal | F8 = fast | Ctrl+S = Save";
             // 
@@ -110,26 +117,17 @@
             this.dataGridView1.DataSource = this.TranscriptLineBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(316, 265);
             this.dataGridView1.TabIndex = 8;
+            this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
             // 
             // TranscriptLineBindingSource
             // 
             this.TranscriptLineBindingSource.AllowNew = false;
             this.TranscriptLineBindingSource.DataMember = "TranscriptLine";
             this.TranscriptLineBindingSource.DataSource = this.dataBindingSource;
-            // 
-            // dataBindingSource
-            // 
-            this.dataBindingSource.DataSource = this.Data;
-            this.dataBindingSource.Position = 0;
-            this.dataBindingSource.CurrentChanged += new System.EventHandler(this.dataBindingSource_CurrentChanged);
-            // 
-            // Data
-            // 
-            this.Data.DataSetName = "TranscriptDataSet";
-            this.Data.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // openFileDialog1
             // 
@@ -144,8 +142,15 @@
             this.toolStripSeparator1,
             this.tsbtnExportXls,
             this.tsbtnExportSrt,
+            this.toolStripSeparator3,
+            this.tsbtnTimeSlide,
             this.toolStripSeparator2,
-            this.tsbtnHelp});
+            this.tsbtnHelp,
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.toolStripSeparator4,
+            this.toolStripButton3,
+            this.toolStripButton4});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(577, 25);
@@ -207,6 +212,21 @@
             this.tsbtnExportSrt.Text = "toolStripButton5";
             this.tsbtnExportSrt.Click += new System.EventHandler(this.tsbtnExportSrt_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbtnTimeSlide
+            // 
+            this.tsbtnTimeSlide.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnTimeSlide.Image = global::TranscriptStudio.Properties.Resources.clock;
+            this.tsbtnTimeSlide.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnTimeSlide.Name = "tsbtnTimeSlide";
+            this.tsbtnTimeSlide.Size = new System.Drawing.Size(23, 22);
+            this.tsbtnTimeSlide.Text = "toolStripButton1";
+            this.tsbtnTimeSlide.Click += new System.EventHandler(this.tsbtnTimeSlide_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -222,6 +242,51 @@
             this.tsbtnHelp.Text = "toolStripButton1";
             this.tsbtnHelp.Click += new System.EventHandler(this.tsbtnHelp_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::TranscriptStudio.Properties.Resources.arrow_divide;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = global::TranscriptStudio.Properties.Resources.asterisk_yellow;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = global::TranscriptStudio.Properties.Resources.arrow_up;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = global::TranscriptStudio.Properties.Resources.arrow_down;
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.splitContainer1);
@@ -230,48 +295,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(577, 322);
             this.panel1.TabIndex = 9;
-            // 
-            // startDataGridViewTextBoxColumn
-            // 
-            this.startDataGridViewTextBoxColumn.DataPropertyName = "Start";
-            this.startDataGridViewTextBoxColumn.HeaderText = "Start";
-            this.startDataGridViewTextBoxColumn.Name = "startDataGridViewTextBoxColumn";
-            // 
-            // endDataGridViewTextBoxColumn
-            // 
-            this.endDataGridViewTextBoxColumn.DataPropertyName = "End";
-            this.endDataGridViewTextBoxColumn.HeaderText = "End";
-            this.endDataGridViewTextBoxColumn.Name = "endDataGridViewTextBoxColumn";
-            // 
-            // textDataGridViewTextBoxColumn
-            // 
-            this.textDataGridViewTextBoxColumn.DataPropertyName = "Text";
-            this.textDataGridViewTextBoxColumn.HeaderText = "Text";
-            this.textDataGridViewTextBoxColumn.Name = "textDataGridViewTextBoxColumn";
-            this.textDataGridViewTextBoxColumn.Width = 400;
-            // 
-            // Speaker
-            // 
-            this.Speaker.DataPropertyName = "Speaker";
-            this.Speaker.HeaderText = "Speaker";
-            this.Speaker.Name = "Speaker";
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.Width = 30;
-            // 
-            // tbEntryField
-            // 
-            this.tbEntryField.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tbEntryField.Location = new System.Drawing.Point(0, 265);
-            this.tbEntryField.Multiline = true;
-            this.tbEntryField.Name = "tbEntryField";
-            this.tbEntryField.Size = new System.Drawing.Size(316, 57);
-            this.tbEntryField.TabIndex = 6;
-            this.tbEntryField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // splitContainer1
             // 
@@ -291,6 +314,67 @@
             this.splitContainer1.SplitterDistance = 257;
             this.splitContainer1.TabIndex = 9;
             // 
+            // tbEntryField
+            // 
+            this.tbEntryField.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbEntryField.Location = new System.Drawing.Point(0, 265);
+            this.tbEntryField.Multiline = true;
+            this.tbEntryField.Name = "tbEntryField";
+            this.tbEntryField.Size = new System.Drawing.Size(316, 57);
+            this.tbEntryField.TabIndex = 6;
+            this.tbEntryField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            // 
+            // Speaker
+            // 
+            this.Speaker.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Speaker.DataPropertyName = "Speaker";
+            this.Speaker.HeaderText = "Speaker";
+            this.Speaker.Name = "Speaker";
+            this.Speaker.Width = 72;
+            // 
+            // startDataGridViewTextBoxColumn
+            // 
+            this.startDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.startDataGridViewTextBoxColumn.DataPropertyName = "Start";
+            this.startDataGridViewTextBoxColumn.HeaderText = "Start";
+            this.startDataGridViewTextBoxColumn.Name = "startDataGridViewTextBoxColumn";
+            this.startDataGridViewTextBoxColumn.Width = 54;
+            // 
+            // endDataGridViewTextBoxColumn
+            // 
+            this.endDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.endDataGridViewTextBoxColumn.DataPropertyName = "End";
+            this.endDataGridViewTextBoxColumn.HeaderText = "End";
+            this.endDataGridViewTextBoxColumn.Name = "endDataGridViewTextBoxColumn";
+            this.endDataGridViewTextBoxColumn.Width = 51;
+            // 
+            // textDataGridViewTextBoxColumn
+            // 
+            this.textDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.textDataGridViewTextBoxColumn.DataPropertyName = "Text";
+            this.textDataGridViewTextBoxColumn.HeaderText = "Text";
+            this.textDataGridViewTextBoxColumn.Name = "textDataGridViewTextBoxColumn";
+            this.textDataGridViewTextBoxColumn.Width = 53;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.Width = 41;
+            // 
+            // dataBindingSource
+            // 
+            this.dataBindingSource.DataSource = this.Data;
+            this.dataBindingSource.Position = 0;
+            this.dataBindingSource.CurrentChanged += new System.EventHandler(this.dataBindingSource_CurrentChanged);
+            // 
+            // Data
+            // 
+            this.Data.DataSetName = "TranscriptDataSet";
+            this.Data.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -308,8 +392,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.axWmPlayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TranscriptLineBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Data)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -318,6 +400,8 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Data)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,13 +428,20 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton tsbtnHelp;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TextBox tbEntryField;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton tsbtnTimeSlide;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.DataGridViewTextBoxColumn startDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn endDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn textDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Speaker;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TextBox tbEntryField;
         
     }
 }

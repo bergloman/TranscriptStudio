@@ -60,6 +60,41 @@ namespace TranscriptStudio.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap arrow_divide {
+            get {
+                object obj = ResourceManager.GetObject("arrow_divide", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap arrow_down {
+            get {
+                object obj = ResourceManager.GetObject("arrow_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap arrow_up {
+            get {
+                object obj = ResourceManager.GetObject("arrow_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap asterisk_yellow {
+            get {
+                object obj = ResourceManager.GetObject("asterisk_yellow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap clock {
+            get {
+                object obj = ResourceManager.GetObject("clock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap disk {
             get {
                 object obj = ResourceManager.GetObject("disk", resourceCulture);
