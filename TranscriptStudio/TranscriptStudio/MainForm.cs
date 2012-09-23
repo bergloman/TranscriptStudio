@@ -1,15 +1,11 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TranscriptStudio {
 
+    using TranscriptStudio.Models;
 
     public partial class MainForm : Form {
 
@@ -93,11 +89,6 @@ namespace TranscriptStudio {
                 axWmPlayer.settings.rate = 1;
             } else if (e.KeyCode == Keys.F8) {
                 axWmPlayer.settings.rate = model.FFSpeed;
-                /*} else if (e.KeyCode == Keys.O && e.Control) {
-                    if (openFileDialog1.ShowDialog(this) == System.Windows.Forms.DialogResult.OK) {
-                        axWmPlayer.URL = openFileDialog1.FileName;
-                        model.IsPaused = false;
-                    } */
             } else if (e.KeyCode == Keys.S && e.Control) {
                 model.SaveMainFile();
             } else if (e.KeyCode == Keys.Enter) {
@@ -111,9 +102,10 @@ namespace TranscriptStudio {
                 .Replace("\r", "")
                 .Trim();
             if (s.Length != 0) {
-                model.PushNewTranscriptLine(s, axWmPlayer.Ctlcontrols.currentPosition);
+                var index = model.PushNewTranscriptLine(s, axWmPlayer.Ctlcontrols.currentPosition);
                 tbEntryField.Text = "";
-                //dataGridView1.sele
+                if (index.HasValue) 
+                    dataGridView1.FirstDisplayedScrollingRowIndex = index.Value;
             }
         }
 
@@ -140,6 +132,21 @@ namespace TranscriptStudio {
             }
         }
 
+        void RedrawWarnings() {
+            var statuses = model.GetRowStatuses();
+            for (int i = 0; i < statuses.Length; i++) {
+                if (i >= dataGridView1.RowCount) break;
+                if (statuses[i].IsOverlappingWithNext)
+                    dataGridView1.Rows[ i].DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                else if (statuses[i].IsOverlappingWithPrevious)
+                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
+                else if (statuses[i].IsTextTooLong)
+                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.LightPink;
+                else
+                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = dataGridView1.BackColor;
+            }
+        }
+
         private void dataBindingSource_CurrentChanged(object sender, EventArgs e) {
 
         }
@@ -149,7 +156,7 @@ namespace TranscriptStudio {
         }
 
         private void tsbtnExportXls_Click(object sender, EventArgs e) {
-            model.ExportExcel(@"d:\temp\viktor\a.xls");
+            model.ExportExcel();
         }
 
         private void tsbtnExportSrt_Click(object sender, EventArgs e) {
@@ -188,11 +195,13 @@ namespace TranscriptStudio {
         private void toolStripButton3_Click(object sender, EventArgs e) {
             // move row up
             var id = GetCurrentRowId();
+            model.MoveCurrentLine(id, true);
         }
 
         private void toolStripButton4_Click(object sender, EventArgs e) {
             // move row down
             var id = GetCurrentRowId();
+            model.MoveCurrentLine(id, false);
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e) {
@@ -208,117 +217,13 @@ namespace TranscriptStudio {
         }
 
         private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e) {
+            RedrawWarnings();
+        }
 
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
+            RedrawWarnings();
         }
     }
 
-    class MainFormModel {
-
-        public MainFormModel(data_schema.TranscriptDataSet data) {
-            DataSet = data;
-        }
-
-        public bool IsPaused { get; set; }
-        public double FFSpeed { get; set; }
-        public double CurrentPosition { get; set; }
-        public string TempXmlFile { get; set; }
-        public string MainXmlFile { get; set; }
-        data_schema.TranscriptDataSet DataSet { get; set; }
-
-        public void InitNewProject(string main_xml_file, string media_file) {
-            MainXmlFile = main_xml_file;
-            DataSet = new data_schema.TranscriptDataSet();
-            DataSet.TranscriptUnit.AddTranscriptUnitRow(media_file, 0, DateTime.Now, DateTime.Now);
-            DataSet.TranscriptLine.Clear();
-            DataSet.WriteXml(main_xml_file, XmlWriteMode.IgnoreSchema);
-        }
-
-        public string GetMediaFileName() {
-            return DataSet.TranscriptUnit.First().FileName;
-        }
-
-        public void ReadXmlFile() {
-            DataSet.ReadXml(MainXmlFile, XmlReadMode.IgnoreSchema);
-        }
-
-        public data_schema.TranscriptDataSet.TranscriptLineDataTable GetLinesDataTable() {
-            return this.DataSet.TranscriptLine;
-        }
-
-        void RecalcIds() {
-
-            // TODO
-        }
-
-        public void MoveCurrentLine(int id, bool move_up = true) {
-            var target = DataSet.TranscriptLine.Where(x => x.Id == id).First();
-            // identify neighbouring line
-            //data_schema.TranscriptDataSet.TranscriptLineRow neighbour;
-            // TODO
-        }
-
-        public void AddLine(string Text, double Start, double End, string Speaker) {
-            DataSet.TranscriptLine.AddTranscriptLineRow(-1, Text, Start, End, Speaker);
-            RecalcIds();
-        }
-
-        public void SplitLine(int id, bool copy = true) {
-            var target = DataSet.TranscriptLine.Where(x => x.Id == id).First();
-            var middle = target.Start + (target.End - target.Start) / 2;
-            AddLine(target.Text, middle, target.End, target.Speaker);
-            target.End = middle;
-            if (!copy)
-                target.Text = "";
-        }
-
-        public void PushNewTranscriptLine(string s, double new_position) {
-            if (s.Length != 0) {
-                AddLine(s, CurrentPosition, new_position, "");
-                CurrentPosition = new_position;
-                SaveTempFile();
-            }
-        }
-
-        public void SaveTempFile() {
-            if (DataSet.TranscriptUnit.Count == 0) {
-                DataSet.TranscriptUnit.AddTranscriptUnitRow(MainXmlFile, 0, DateTime.Now, DateTime.Now);
-            }
-            DataSet.TranscriptUnit[0].LastEdit = DateTime.Now;
-            DataSet.WriteXml(TempXmlFile, XmlWriteMode.IgnoreSchema);
-        }
-
-        public void SaveMainFile() {
-            DataSet.TranscriptUnit[0].LastEdit = DateTime.Now;
-            DataSet.WriteXml(MainXmlFile, XmlWriteMode.IgnoreSchema);
-        }
-
-        public void ExportExcel(string file_name = null) {
-            if (file_name == null)
-                file_name = Path.ChangeExtension(DataSet.TranscriptUnit.First().FileName, "csv");
-            var lines = (from x in DataSet.TranscriptLine
-                         orderby x.Start
-                         select x.Text).ToList();
-            File.WriteAllLines(file_name, lines, Encoding.UTF8);
-        }
-
-        string ToSrtTime(double val) {
-            int h = (int)val / (60 * 60);
-            int m = (int)(val / 60 - h * 60);
-            int s = (int)(val - h * 60 * 60 - m * 60);
-            int ms = (int)Math.Floor(1000 * (val - (int)val));
-            return string.Format("{0:d2}:{1:d2}:{2:d2},{3:d3}", h, m, s, ms);
-        }
-
-        public void ExportSrt(string file_name = null) {
-            if (file_name == null)
-                file_name = Path.ChangeExtension(DataSet.TranscriptUnit.First().FileName, "srt");
-            var lines = (from x in DataSet.TranscriptLine
-                         orderby x.Start
-                         select
-                            x.Id + Environment.NewLine +
-                            ToSrtTime(x.Start) + " --> " + ToSrtTime(x.End) + Environment.NewLine +
-                            x.Text + Environment.NewLine).ToList();
-            File.WriteAllLines(file_name, lines, Encoding.UTF8);
-        }
-    }
+    
 }

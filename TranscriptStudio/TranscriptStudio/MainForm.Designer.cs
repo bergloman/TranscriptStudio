@@ -92,7 +92,7 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(627, 15);
             this.toolStripStatusLabel1.Text = "F1 = -10sec | F2 = -3sec | F3 = +3sec | F4 = +10sec | F5 = play/pause | F6 = slow" +
-                " | F7 = normal | F8 = fast | Ctrl+S = Save";
+    " | F7 = normal | F8 = fast | Ctrl+S = Save";
             // 
             // axWmPlayer
             // 
@@ -121,6 +121,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(316, 265);
             this.dataGridView1.TabIndex = 8;
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
             // 
             // startDataGridViewTextBoxColumn
