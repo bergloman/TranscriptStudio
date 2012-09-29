@@ -24,13 +24,15 @@
         /// </summary>
         private void InitializeComponent() {
             this.lblStartLine = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbStart = new System.Windows.Forms.TextBox();
+            this.tbEnd = new System.Windows.Forms.TextBox();
             this.lblEndLine = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.cbTimeSlide = new System.Windows.Forms.CheckBox();
+            this.tbTimeSlideSec = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btnPerform = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,23 +45,23 @@
             this.lblStartLine.TabIndex = 0;
             this.lblStartLine.Text = "Start line";
             // 
-            // textBox1
+            // tbStart
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(149, 13);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(108, 20);
-            this.textBox1.TabIndex = 1;
+            this.tbStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbStart.Location = new System.Drawing.Point(149, 13);
+            this.tbStart.Name = "tbStart";
+            this.tbStart.Size = new System.Drawing.Size(108, 20);
+            this.tbStart.TabIndex = 1;
             // 
-            // textBox2
+            // tbEnd
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(149, 39);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(108, 20);
-            this.textBox2.TabIndex = 3;
+            this.tbEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbEnd.Location = new System.Drawing.Point(149, 39);
+            this.tbEnd.Name = "tbEnd";
+            this.tbEnd.Size = new System.Drawing.Size(108, 20);
+            this.tbEnd.TabIndex = 3;
             // 
             // lblEndLine
             // 
@@ -72,10 +74,10 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Controls.Add(this.textBox3);
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.cbTimeSlide);
+            this.groupBox1.Controls.Add(this.tbTimeSlideSec);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 65);
             this.groupBox1.Name = "groupBox1";
@@ -84,14 +86,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Time slide";
             // 
-            // textBox3
+            // cbTimeSlide
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(137, 42);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(108, 20);
-            this.textBox3.TabIndex = 6;
+            this.cbTimeSlide.AutoSize = true;
+            this.cbTimeSlide.Location = new System.Drawing.Point(6, 19);
+            this.cbTimeSlide.Name = "cbTimeSlide";
+            this.cbTimeSlide.Size = new System.Drawing.Size(200, 17);
+            this.cbTimeSlide.TabIndex = 7;
+            this.cbTimeSlide.Text = "Perform time slide - move lines in time";
+            this.cbTimeSlide.UseVisualStyleBackColor = true;
+            // 
+            // tbTimeSlideSec
+            // 
+            this.tbTimeSlideSec.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbTimeSlideSec.Location = new System.Drawing.Point(137, 42);
+            this.tbTimeSlideSec.Name = "tbTimeSlideSec";
+            this.tbTimeSlideSec.Size = new System.Drawing.Size(108, 20);
+            this.tbTimeSlideSec.TabIndex = 6;
             // 
             // label1
             // 
@@ -102,25 +114,37 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Silde by (sec)";
             // 
-            // checkBox1
+            // btnPerform
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 19);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(200, 17);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Perform time slide - move lines in time";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.btnPerform.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnPerform.Location = new System.Drawing.Point(115, 227);
+            this.btnPerform.Name = "btnPerform";
+            this.btnPerform.Size = new System.Drawing.Size(75, 23);
+            this.btnPerform.TabIndex = 5;
+            this.btnPerform.Text = "Perform";
+            this.btnPerform.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(196, 227);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // TimeSlideForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnPerform);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tbEnd);
             this.Controls.Add(this.lblEndLine);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbStart);
             this.Controls.Add(this.lblStartLine);
             this.Name = "TimeSlideForm";
             this.Text = "TimeSlideForm";
@@ -134,13 +158,15 @@
         #endregion
 
         private System.Windows.Forms.Label lblStartLine;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbStart;
+        private System.Windows.Forms.TextBox tbEnd;
         private System.Windows.Forms.Label lblEndLine;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.CheckBox cbTimeSlide;
+        private System.Windows.Forms.TextBox tbTimeSlideSec;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnPerform;
+        private System.Windows.Forms.Button btnCancel;
 
     }
 }

@@ -89,6 +89,8 @@ namespace TranscriptStudio {
                 axWmPlayer.settings.rate = 1;
             } else if (e.KeyCode == Keys.F8) {
                 axWmPlayer.settings.rate = model.FFSpeed;
+            } else if (e.KeyCode == Keys.F9) {
+                axWmPlayer.Ctlcontrols.currentPosition = model.GetRowStart(GetCurrentRowId());
             } else if (e.KeyCode == Keys.S && e.Control) {
                 model.SaveMainFile();
             } else if (e.KeyCode == Keys.Enter) {
@@ -183,7 +185,11 @@ namespace TranscriptStudio {
         }
 
         private void tsbtnTimeSlide_Click(object sender, EventArgs e) {
-            // TODO show dialog for time-sliding
+            var frm = new TimeSlideForm();
+            if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                model.TimeSlide(frm.StartId, frm.EndId, frm.TimeSlideInSec);
+                this.RedrawWarnings();
+            }
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e) {
@@ -221,7 +227,20 @@ namespace TranscriptStudio {
         }
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
+            model.RecalcTimeStrings(GetCurrentRowId());
             RedrawWarnings();
+        }
+
+        private void toolStripButton5_Click(object sender, EventArgs e) {
+            model.DeleteRow(GetCurrentRowId());
+        }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e) {
+            textBox1_KeyDown(sender, e);
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e) {
+            model.ExportHtml();
         }
     }
 

@@ -84,6 +84,7 @@
     <Compile Include="TimeSlideForm.Designer.cs">
       <DependentUpon>TimeSlideForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="MainAboutBox.resx">
       <DependentUpon>MainAboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -167,6 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReadMe.txt" />
+    <None Include="Resources\html.png" />
+    <None Include="Resources\cross.png" />
     <None Include="Resources\arrow_down.png" />
     <None Include="Resources\arrow_up.png" />
     <None Include="Resources\asterisk_yellow.png" />
