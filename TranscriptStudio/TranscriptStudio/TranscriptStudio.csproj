@@ -168,6 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReadMe.txt" />
+    <None Include="Resources\arrow_join.png" />
+    <None Include="Resources\flag_blue.png" />
     <None Include="Resources\html.png" />
     <None Include="Resources\cross.png" />
     <None Include="Resources\arrow_down.png" />

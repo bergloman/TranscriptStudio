@@ -91,6 +91,10 @@ namespace TranscriptStudio {
                 axWmPlayer.settings.rate = model.FFSpeed;
             } else if (e.KeyCode == Keys.F9) {
                 axWmPlayer.Ctlcontrols.currentPosition = model.GetRowStart(GetCurrentRowId());
+            } else if (e.KeyCode == Keys.F12) {
+                AddTimePoint();
+            } else if (e.KeyCode == Keys.Q && e.Control) {
+                EndManualTiming();
             } else if (e.KeyCode == Keys.S && e.Control) {
                 model.SaveMainFile();
             } else if (e.KeyCode == Keys.Enter) {
@@ -106,7 +110,7 @@ namespace TranscriptStudio {
             if (s.Length != 0) {
                 var index = model.PushNewTranscriptLine(s, axWmPlayer.Ctlcontrols.currentPosition);
                 tbEntryField.Text = "";
-                if (index.HasValue) 
+                if (index.HasValue)
                     dataGridView1.FirstDisplayedScrollingRowIndex = index.Value;
             }
         }
@@ -130,7 +134,7 @@ namespace TranscriptStudio {
                 this.tbEntryField.Enabled = true;
                 this.axWmPlayer.Enabled = true;
                 this.tbEntryField.Focus();
-                dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Ascending);
+                dataGridView1.Sort(dataGridView1.Columns[6], ListSortDirection.Ascending);
             }
         }
 
@@ -139,7 +143,7 @@ namespace TranscriptStudio {
             for (int i = 0; i < statuses.Length; i++) {
                 if (i >= dataGridView1.RowCount) break;
                 if (statuses[i].IsOverlappingWithNext)
-                    dataGridView1.Rows[ i].DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                    dataGridView1.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
                 else if (statuses[i].IsOverlappingWithPrevious)
                     dataGridView1.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
                 else if (statuses[i].IsTextTooLong)
@@ -227,7 +231,9 @@ namespace TranscriptStudio {
         }
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
+            dataGridView1.SuspendLayout();
             model.RecalcTimeStrings(GetCurrentRowId());
+            dataGridView1.ResumeLayout();
             RedrawWarnings();
         }
 
@@ -242,7 +248,37 @@ namespace TranscriptStudio {
         private void toolStripButton6_Click(object sender, EventArgs e) {
             model.ExportHtml();
         }
-    }
 
-    
+        private void toolStripButton7_Click(object sender, EventArgs e) {
+            axWmPlayer.Ctlcontrols.pause();
+
+            var current_row_id = GetCurrentRowId();
+            axWmPlayer.Ctlcontrols.currentPosition = model.GetRowStart(current_row_id);
+            dataGridView1.CurrentRow.Selected = false;
+            dataGridView1.Rows[current_row_id].Selected = true;
+
+            model.StartManualTiming(current_row_id);
+            axWmPlayer.Ctlcontrols.play();
+        }
+
+        private void AddTimePoint() {
+            dataGridView1.Rows[model.ManualTimingCurrentIndex].Selected = false;
+            if (model.AddTimePoint(axWmPlayer.Ctlcontrols.currentPosition)) {
+                dataGridView1.Rows[model.ManualTimingCurrentIndex].Selected = true;
+                dataGridView1.FirstDisplayedScrollingRowIndex = Math.Max(0, model.ManualTimingCurrentIndex - 3);
+            } else {
+                EndManualTiming();
+            }
+        }
+
+        private void EndManualTiming() {
+            //dataGridView1.ReadOnly = false;
+            model.EndManualTiming();
+            RedrawWarnings();
+        }
+
+        private void tsbtnJoin_Click(object sender, EventArgs e) {
+            model.JoinRows(GetCurrentRowId());
+        }
+    }
 }

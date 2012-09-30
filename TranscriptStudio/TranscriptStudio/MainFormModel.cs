@@ -127,6 +127,8 @@ namespace TranscriptStudio.Models {
         }
 
         public int AddLine(string Text, double Start, double End, string Speaker) {
+            Start = Math.Round(Start, 1);
+            End = Math.Round(End, 1);
             DataSet.TranscriptLine.AddTranscriptLineRow(-1, Text, Start, End, Speaker, Start.FromDoubleToTimeStr(), End.FromDoubleToTimeStr());
             RecalcIds();
             return DataSet.TranscriptLine
@@ -174,9 +176,48 @@ namespace TranscriptStudio.Models {
             this.RecalcIds();
         }
 
+        public void JoinRows(int id) {
+            var row1 = DataSet.TranscriptLine.Where(x => x.Id == id).First();
+            var row2 = DataSet.TranscriptLine.Where(x => x.Id == id + 1).First();
+            row1.End = row2.End;
+            row1.Text += " " + row2.Text;
+            DeleteRow(id + 1);
+        }
+
         public double GetRowStart(int id) {
             var row = DataSet.TranscriptLine.Where(x => x.Id == id).First();
             return row.Start;
+        }
+
+        public int RowCount { get { return DataSet.TranscriptLine.Count; } }
+
+        ///////////////////////////////////////////////////////////////////////////////
+
+        public int ManualTimingCurrentIndex { get; private set; }
+
+        public void StartManualTiming(int index = 0) {
+            ManualTimingCurrentIndex = index;
+        }
+
+        public bool AddTimePoint(double current_position) {
+            current_position = Math.Round(current_position, 1);
+
+            var data = DataSet.TranscriptLine.Where(x => x.Id == ManualTimingCurrentIndex).First();
+            data.End = current_position;
+            ManualTimingCurrentIndex++;
+            if (ManualTimingCurrentIndex < DataSet.TranscriptLine.Rows.Count) {
+                data = DataSet.TranscriptLine.Where(x => x.Id == ManualTimingCurrentIndex).First();
+                data.Start = current_position;
+            } else {
+                ManualTimingCurrentIndex--;
+                EndManualTiming();
+                return false;
+            }
+            return true;
+        }
+
+        public void EndManualTiming() {
+            this.RecalcTimeStrings();
         }
 
         ///////////////////////////////////////////////////////////////////////////////
